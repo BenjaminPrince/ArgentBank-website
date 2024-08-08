@@ -13,6 +13,7 @@ Argent Bank uses the following tech stack:
 
 Please make sure you have the right versions and download both packages. You can verify this by using the following commands in your terminal:
 
+
 ```bash
 # Check Node.js version
 node --version
