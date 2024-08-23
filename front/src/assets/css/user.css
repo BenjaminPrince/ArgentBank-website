@@ -1,0 +1,93 @@
+.user-edit-mode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #f4f4f4;
+}
+
+.user-edit-mode .header {
+    max-width: 425px;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.user-edit-mode h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.user-edit-mode .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.user-edit-mode label {
+    flex: 0 0 150px;
+    margin-bottom: 0;
+    font-weight: bold;
+    color: #333;
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.user-edit-mode input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    font-size: 0.875rem;
+    color: #333;
+    background-color: #f9f9f9;
+    border-radius: 0;
+    transition: background-color 0.2s;
+    margin-top: 3px;
+}
+
+.user-edit-mode input:read-only {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+    border: 1px solid #ddd;
+}
+
+.user-edit-mode .edit-button {
+    background-color: #00bc77;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    max-width: 200px;
+    margin: 0.5rem;
+    text-align: center;
+    border-radius: 0;
+    display: inline-block;
+}
+
+.user-edit-mode .edit-button:hover {
+    background-color: #009e63;
+}
+
+.user-edit-mode .edit-button.cancel {
+    background-color: #f44336;
+}
+
+.user-edit-mode .edit-button.cancel:hover {
+    background-color: #d32f2f;
+}
+
+.user-edit-mode .button-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+    gap: 1rem;
+}
