@@ -1,6 +1,6 @@
 import React from 'react';
 import iconChat from '../assets/img/icon-chat.webp';
-import iconMoney from '../assets/img/icon-money.png'; 
+import iconMoney from '../assets/img/icon-money.webp'; 
 import iconSecurity from '../assets/img/icon-security.webp';
 
 const Features = () => (
