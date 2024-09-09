@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../store/authActions'; // Assurez-vous que ce chemin est correct
+import { login } from '../store/authActions'; 
 
 function SignIn() {
     const [username, setUsername] = useState('');
