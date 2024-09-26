@@ -286,28 +286,7 @@ definitions:
             type: string
             description: Detailed description or additional information about the transaction
 
-  TransactionCreate:
-    type: object
-    properties:
-      amount:
-        type: number
-        format: float
-        description: Amount of the transaction
-      date:
-        type: string
-        format: date
-        description: Date of the transaction
-      accountId:
-        type: string
-        description: Account ID associated with the transaction
-      description:
-        type: string
-        description: Description of the transaction
-      balance:
-        type: number
-        format: float
-        description: Current balance after the transaction
-
+ 
   TransactionUpdate:
     type: object
     properties:
