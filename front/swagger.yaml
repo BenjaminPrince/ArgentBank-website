@@ -106,20 +106,26 @@ paths:
           description: Internal Server Error
 
   # Routes transaction
-  /transactions/current-month:
+  /user/account/{accountId}/transactions:
     get:
       tags:
         - Transactions
-      summary: Retrieve all transactions for the current month
+      summary: Retrieve all transactions for the current month for a specific account
       description: |
-        Renvoie une liste de toutes les transactions pour le mois en cours, groupées par compte.
+        Renvoie une liste de toutes les transactions pour le mois en cours, groupées par comptes spécifiques.
       security:
         - Bearer: []
+      parameters:
+        - in: path
+          name: accountId
+          description: ID du compte pour lequel récupérer les transactions du mois en cours
+          required: true
+          type: string
       produces:
         - application/json
       responses:
         '200':
-          description: Liste des transactions pour le mois en cours récupérées avec succès
+          description: Liste des transactions pour le mois en cours récupérées avec succès pour le compte
           schema:
             type: object
             properties:
@@ -132,7 +138,7 @@ paths:
         '500':
           description: Erreur interne du serveur
 
-  /transactions/{transactionId}:
+  /user/account/{accountId}/transactions/{transactionId}:
     get:
       tags:
         - Transactions
@@ -141,6 +147,11 @@ paths:
       security:
         - Bearer: []
       parameters:
+        - in: path
+          name: accountId
+          description: ID du compte pour lequel la transaction est associée
+          required: true
+          type: string
         - in: path
           name: transactionId
           description: ID of the transaction to retrieve
@@ -168,6 +179,11 @@ paths:
       security:
         - Bearer: []
       parameters:
+        - in: path
+          name: accountId
+          description: ID du compte pour lequel la transaction est associée
+          required: true
+          type: string
         - in: path
           name: transactionId
           description: ID of the transaction to update
@@ -286,7 +302,6 @@ definitions:
             type: string
             description: Detailed description or additional information about the transaction
 
- 
   TransactionUpdate:
     type: object
     properties:
