@@ -110,9 +110,9 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Retrieve all transactions for the current month for a specific account
+      summary: Retrieve all transactions for the current month for a account
       description: |
-        Renvoie une liste de toutes les transactions pour le mois en cours, groupées par comptes spécifiques.
+        Renvoie une liste de toutes les transactions pour le mois en cours,groupées par compte.
       security:
         - Bearer: []
       parameters:
