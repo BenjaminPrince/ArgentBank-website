@@ -230,15 +230,49 @@ paths:
         '200':
           description: Transaction updated successfully
           schema:
-            $ref: '#/definitions/Transaction'
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the transaction
+              amount:
+                type: number
+                format: float
+                description: Amount of the transaction
+              date:
+                type: string
+                format: date
+                description: Date of the transaction
+              accountId:
+                type: string
+                description: Account ID associated with the transaction
+              description:
+                type: string
+                description: Description of the transaction
+              balance:
+                type: number
+                format: float
+                description: Current balance after the transaction
+              details:
+                type: object
+                properties:
+                  transactionType:
+                    type: string
+                    description: Type of the transaction
+                  category:
+                    type: string
+                    description: Updated category of the transaction
+                  note:
+                    type: string
+                    description: Updated note for the transaction
+        '400':
+          description: Invalid input data, possibly due to missing fields or incorrect values
         '404':
           description: Transaction not found
-        '400':
-          description: Invalid input data
         '401':
-          description: Unauthorized
+          description: Unauthorized, possibly due to a missing or invalid authentication token
         '500':
-          description: Internal Server Error
+          description: Internal Server Error, please contact support if the error persists
 
 definitions:
   User:
