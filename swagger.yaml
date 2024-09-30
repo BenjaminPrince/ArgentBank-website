@@ -111,31 +111,71 @@ paths:
       tags:
         - Transactions
       summary: Retrieve all transactions for the current month
-      description: Returns a list of all transactions for the current month, grouped by account
+      description: |
+        Renvoie une liste de toutes les transactions pour le mois en cours, groupées par compte.
       security:
         - Bearer: []
-      parameters:
-        - in: query
-          name: accountId
-          description: Filter transactions by account ID (optional)
-          required: false
-          type: string
       produces:
         - application/json
       responses:
         '200':
-          description: List of transactions for the current month retrieved successfully
+          description: Liste des transactions pour le mois en cours récupérées avec succès
           schema:
             type: object
             properties:
-              transactions:
+              accounts:
                 type: array
                 items:
-                  $ref: '#/definitions/Transaction'
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Account ID
+                    balance:
+                      type: number
+                      description: Account balance
+                    type:
+                      type: string
+                      description: Account type
+                    transactions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier for the transaction
+                          date:
+                            type: string
+                            format: date
+                            description: Date of the transaction
+                          description:
+                            type: string
+                            description: Description of the transaction
+                          amount:
+                            type: number
+                            format: float
+                            description: Amount of the transaction
+                          balance:
+                            type: number
+                            format: float
+                            description: Current balance after the transaction
+                          details:
+                            type: object
+                            properties:
+                              transactionType:
+                                type: string
+                                description: Type of the transaction
+                              category:
+                                type: string
+                                description: Category of the transaction
+                              note:
+                                type: string
+                                description: Note associated with the transaction
         '401':
-          description: Unauthorized
+          description: Non autorisé
         '500':
-          description: Internal Server Error
+          description: Erreur interne du serveur
 
   /transactions/{transactionId}:
     get:
@@ -165,7 +205,7 @@ paths:
         '500':
           description: Internal Server Error
 
-    put:
+    patch:
       tags:
         - Transactions
       summary: Update an existing transaction
@@ -193,35 +233,6 @@ paths:
             $ref: '#/definitions/Transaction'
         '404':
           description: Transaction not found
-        '400':
-          description: Invalid input data
-        '401':
-          description: Unauthorized
-        '500':
-          description: Internal Server Error
-
-  /transactions:
-    post:
-      tags:
-        - Transactions
-      summary: Add a new transaction
-      description: Allows the addition of a new transaction
-      security:
-        - Bearer: []
-      parameters:
-        - in: body
-          name: body
-          description: Transaction payload to be added
-          required: true
-          schema:
-            $ref: '#/definitions/TransactionCreate'
-      produces:
-        - application/json
-      responses:
-        '201':
-          description: Transaction added successfully
-          schema:
-            $ref: '#/definitions/Transaction'
         '400':
           description: Invalid input data
         '401':
@@ -306,6 +317,10 @@ definitions:
       description:
         type: string
         description: Description of the transaction
+      balance:
+        type: number
+        format: float
+        description: Current balance after the transaction
 
   TransactionDetail:
     allOf:
@@ -313,41 +328,30 @@ definitions:
       - type: object
         properties:
           details:
-            type: string
-            description: Detailed description or additional information about the transaction
-
-  TransactionCreate:
-    type: object
-    properties:
-      amount:
-        type: number
-        format: float
-        description: Amount of the transaction
-      date:
-        type: string
-        format: date
-        description: Date of the transaction
-      accountId:
-        type: string
-        description: Account ID associated with the transaction
-      description:
-        type: string
-        description: Description of the transaction
+            type: object
+            properties:
+              transactionType:
+                type: string
+                description: Type of the transaction
+              category:
+                type: string
+                description: Category of the transaction
+              note:
+                type: string
+                description: Note associated with the transaction
 
   TransactionUpdate:
     type: object
     properties:
-      amount:
-        type: number
-        format: float
-        description: Updated amount of the transaction
-      date:
-        type: string
-        format: date
-        description: Updated date of the transaction
-      description:
-        type: string
-        description: Updated description of the transaction
+      details:
+        type: object
+        properties:
+          category:
+            type: string
+            description: Updated category of the transaction
+          note:
+            type: string
+            description: Updated note for the transaction
 
 securityDefinitions:
   Bearer:

@@ -106,39 +106,78 @@ paths:
           description: Internal Server Error
 
   # Routes transaction
-  /user/account/{accountId}/transactions:
+  /transactions/current-month:
     get:
       tags:
         - Transactions
-      summary: Retrieve all transactions for the current month for a account
+      summary: Retrieve all transactions for the current month
       description: |
-        Renvoie une liste de toutes les transactions pour le mois en cours,groupées par compte.
+        Renvoie une liste de toutes les transactions pour le mois en cours, groupées par compte.
       security:
         - Bearer: []
-      parameters:
-        - in: path
-          name: accountId
-          description: ID du compte pour lequel récupérer les transactions du mois en cours
-          required: true
-          type: string
       produces:
         - application/json
       responses:
         '200':
-          description: Liste des transactions pour le mois en cours récupérées avec succès pour le compte
+          description: Liste des transactions pour le mois en cours récupérées avec succès
           schema:
             type: object
             properties:
-              transactions:
+              accounts:
                 type: array
                 items:
-                  $ref: '#/definitions/Transaction'
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Account ID
+                    balance:
+                      type: number
+                      description: Account balance
+                    type:
+                      type: string
+                      description: Account type
+                    transactions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Unique identifier for the transaction
+                          date:
+                            type: string
+                            format: date
+                            description: Date of the transaction
+                          description:
+                            type: string
+                            description: Description of the transaction
+                          amount:
+                            type: number
+                            format: float
+                            description: Amount of the transaction
+                          balance:
+                            type: number
+                            format: float
+                            description: Current balance after the transaction
+                          details:
+                            type: object
+                            properties:
+                              transactionType:
+                                type: string
+                                description: Type of the transaction
+                              category:
+                                type: string
+                                description: Category of the transaction
+                              note:
+                                type: string
+                                description: Note associated with the transaction
         '401':
           description: Non autorisé
         '500':
           description: Erreur interne du serveur
 
-  /user/account/{accountId}/transactions/{transactionId}:
+  /transactions/{transactionId}:
     get:
       tags:
         - Transactions
@@ -147,11 +186,6 @@ paths:
       security:
         - Bearer: []
       parameters:
-        - in: path
-          name: accountId
-          description: ID du compte pour lequel la transaction est associée
-          required: true
-          type: string
         - in: path
           name: transactionId
           description: ID of the transaction to retrieve
@@ -179,11 +213,6 @@ paths:
       security:
         - Bearer: []
       parameters:
-        - in: path
-          name: accountId
-          description: ID du compte pour lequel la transaction est associée
-          required: true
-          type: string
         - in: path
           name: transactionId
           description: ID of the transaction to update
@@ -299,18 +328,30 @@ definitions:
       - type: object
         properties:
           details:
-            type: string
-            description: Detailed description or additional information about the transaction
+            type: object
+            properties:
+              transactionType:
+                type: string
+                description: Type of the transaction
+              category:
+                type: string
+                description: Category of the transaction
+              note:
+                type: string
+                description: Note associated with the transaction
 
   TransactionUpdate:
     type: object
     properties:
-      category:
-        type: string
-        description: Updated category of the transaction
-      note:
-        type: string
-        description: Updated note for the transaction
+      details:
+        type: object
+        properties:
+          category:
+            type: string
+            description: Updated category of the transaction
+          note:
+            type: string
+            description: Updated note for the transaction
 
 securityDefinitions:
   Bearer:
