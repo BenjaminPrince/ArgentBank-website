@@ -243,9 +243,6 @@ paths:
                 type: string
                 format: date
                 description: Date of the transaction
-              accountId:
-                type: string
-                description: Account ID associated with the transaction
               description:
                 type: string
                 description: Description of the transaction
@@ -345,9 +342,6 @@ definitions:
         type: string
         format: date
         description: Date of the transaction
-      accountId:
-        type: string
-        description: Account ID associated with the transaction
       description:
         type: string
         description: Description of the transaction
